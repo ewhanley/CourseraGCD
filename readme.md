@@ -9,12 +9,13 @@ from the Samsung Galaxy S smartphone while subjects performed a variety of activ
 ## Project script description
 
 The script requires the plyr and reshape2 packages to be installed and loaded.
+----------------------------------------
 	## load required packages
 	install.packages("plyr")
 	library(plyr)
 	install.packages("reshape2")
 	library(reshape2)
-
+----------------------------------------
 A directory is created, and a zip file containing all pertinent files for the project is downloaded.	
 	## get data
 	dir.create("./HAR")
@@ -63,7 +64,7 @@ The HAR dataframe is subsetted to only include those features containing mean an
 This was accomplished with a combination of the intersect and grep functions.	
 	## subset mean and std columns
 	colSelect <- intersect(grep("mean|std|activity|subject", names(HAR)), 
-			grep("Freq", names(HAR), invert = TRUE))
+	grep("Freq", names(HAR), invert = TRUE))
 	HAR <- HAR[, colSelect]
 
 The column names of the newly subsetted HAR dataframe are cleaned up to make them more
@@ -77,7 +78,7 @@ for each subject and activity.
 	## construct tidy data set
 	molten <- melt(HAR, id.vars = c(1:3))
 	tidyHAR <- dcast(molten, subject + activityCode + activity ~ variable,
-			fun.aggregate = mean)
+	fun.aggregate = mean)
 
 Finally, the tidy dataset tidyHAR is exported to a tab-separated text file.			
 	## export tidy data set to txt file
